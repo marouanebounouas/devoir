@@ -1,0 +1,977 @@
+#include<iostream>
+using namespace std;
+
+class Sports
+{
+protected:
+  const int maxsport = 4;
+  string sport[4];
+  int nombredusport;
+  string cotisation;
+
+public:
+    Sports ()
+  {
+    nombredusport = 0;
+  }
+  Sports & operator= (const Sports & autre)
+  {
+    if (this != &autre)
+      {
+
+	nombredusport = autre.nombredusport;
+	cotisation = autre.cotisation;
+
+
+	for (int i = 0; i < nombredusport; ++i)
+	  {
+	    sport[i] = autre.sport[i];
+	  }
+      }
+    return *this;
+  }
+
+  void menusport ()
+  {
+
+    cout << "Menu sport--------------------" << endl;
+    cout << "1. Futsall" << endl;
+    cout << "2. Basketball" << endl;
+    cout << "3. Vollyball" << endl;
+    cout << "4. Vollyball" << endl;
+    cout << "Entrez le nombre du sports vous voulez pratiquer : ";
+    cin >> nombredusport;
+
+    if (nombredusport <= maxsport)
+      {
+	cout << "Entrez vos sports favorits : " << endl;
+	for (int i = 0; i < nombredusport; ++i)
+	  {
+	    cin >> sport[i];
+	  }
+
+	cout << "Cotisations--------------------" << endl;
+	cout << "1. Annuelle => 3600 DH" << endl;
+	cout << "2. Trimestrielle => 900 DH" << endl;
+	cout << "3. Mensuelle => 300 DH" << endl;
+	cout << "------------------------------" << endl;
+	cout << "Entrer votre choix : ";
+	cin >> cotisation;
+      }
+    else
+      {
+	cout << "Entrez 4 sports en maximum : ";
+      }
+  }
+
+  void afficher () const
+  {
+    cout << "Sports favorits : ";
+    for (int i = 0; i < nombredusport; ++i)
+      {
+	cout << sport[i] << " / ";
+      }
+    cout << endl << "Cotisation choisie : " << cotisation << endl;
+  }
+
+  void supprimer ()
+  {
+    for (int i = 0; i < maxsport; ++i)
+      {
+	sport[i] = "";
+      }
+    cotisation = "";
+    nombredusport = 0;
+  }
+};
+
+class Personnes
+{
+protected:
+  int identifiant[300];
+  string nom[300];
+  string telephone[300];
+  string datedenaissance[300];
+  string datedadhesion[300];
+  int nombreAdherents;
+  int identifiantrecherche;
+  int n_identifiant[300];
+  string n_nom[300];
+  string n_telephone[300];
+  string n_datedenaissance[300];
+  string n_datedadhesion[300];
+  int identifiantmodifier;
+  int identifiantsuprimer;
+  Sports n_sport[300];
+  Sports sport[300];
+
+public:
+    Personnes ()
+  {
+    nombreAdherents = 0;
+  }
+
+  void nouvelleinscription ()
+  {
+    if (nombreAdherents < 300)
+      {
+	cout << "Entrez l identifiant d adherent : ";
+	cin >> identifiant[nombreAdherents];
+
+	cout << "Entrez le telephone d adherent : ";
+	cin >> telephone[nombreAdherents];
+
+	cout << "Entrez le nom d adherent : ";
+	cin >> nom[nombreAdherents];
+
+	cout << "Entrez la date de naissance d adherent : ";
+	cin >> datedenaissance[nombreAdherents];
+
+	cout << "Entrez la date d adhesion d adherent : ";
+	cin >> datedadhesion[nombreAdherents];
+
+	sport[nombreAdherents].menusport ();
+
+	nombreAdherents++;
+      }
+    else
+      {
+	cout << "Nombre maximal d'adherents atteint." << endl;
+      }
+  }
+
+  void afficher () const
+  {
+    cout << "Liste des adherents : " << endl;
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+    cout << "-------------------------" << endl;
+	cout << "Informations de l'adherent : " << endl;
+	cout << "identifiant : " << identifiant[i] << endl;
+	cout << "Nom : " << nom[i] << endl;
+	cout << "Telephone : " << telephone[i] << endl;
+	cout << "date de naissance : " << datedenaissance[i] << endl;
+	cout << "date d'adhesion : " << datedadhesion[i] << endl;
+	sport[i].afficher ();
+	cout << "-------------------------" << endl;
+      }
+  }
+
+  void rechercher ()
+  {
+    cout << "Entrez l'identifiant d'adherent a recherche : " << endl;
+    cin >> identifiantrecherche;
+
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	if (identifiantrecherche == identifiant[i])
+	  {
+	    cout << "voici les informations d'adherent :" << endl;
+	    cout << "identifiant : " << identifiant[i] << endl;
+	    cout << "Nom : " << nom[i] << endl;
+	    cout << "Telephone : " << telephone[i] << endl;
+	    cout << "date de naissance : " << datedenaissance[i] << endl;
+	    cout << "date d'adhesion : " << datedadhesion[i] << endl;
+	    sport[i].afficher ();
+	    cout << "-------------------------" << endl;
+	    break;
+	  }
+	else
+	  {
+	    cout << "l'adherent ne se trouve pas!" << endl;
+	    cout << "Entrez un identifiant existant." << endl;
+	  }
+      }
+  }
+
+  void modifier ()
+  {
+    cout << "Entrez l'identifiant d'adherent a modifier : " << endl;
+    cin >> identifiantmodifier;
+
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	if (identifiantmodifier == identifiant[i])
+	  {
+	    cout << "Entrer les nouvelle information :" << endl;
+
+	    cout << "Entrez le nouveau identifiant d'adherent : " << endl;
+	    cin >> n_identifiant[i];
+
+	    cout << "Entrez le nouveau tel d'adherent : " << endl;
+	    cin >> n_telephone[i];
+
+	    cout << "Entrez le nouveau nom d'adherent : " << endl;
+	    cin >> n_nom[i];
+
+	    cout << "Entrez la nouvelle date de naissance d'adherent : " << endl;
+	    cin >> n_datedenaissance[i];
+
+	    cout << "Entrez la nouvelle date d'adhesion d'adherent : " << endl;
+	    cin >> n_datedadhesion[i];
+
+	    identifiant[i] = n_identifiant[i];
+	    telephone[i] = n_telephone[i];
+	    nom[i] = n_nom[i];
+	    datedenaissance[i] = n_datedenaissance[i];
+	    datedadhesion[i] = n_datedadhesion[i];
+	    sport[i].menusport ();
+
+	    cout << "-------------------------" << endl;
+	    break;
+	  }
+	else
+	  {
+	    cout << "l'adherent ne se trouve pas!" << endl;
+	    cout << "Entrez un identifiant existant." << endl;
+	  }
+      }
+  }
+
+  void supprimer ()
+  {
+      cout << "--------------------------------------------" << endl;
+    cout << "Entrez l'identifiant d'adherent a  supprimer : " << endl;
+    cin >> identifiantsuprimer;
+
+    bool adherentTrouve = false;
+
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	if (identifiantsuprimer == identifiant[i])
+	  {
+	    adherentTrouve = true;
+
+	    for (int j = i; j < (nombreAdherents - 1); ++j)
+	      {
+		identifiant[j] = identifiant[j + 1];
+		telephone[j] = telephone[j + 1];
+		nom[j] = nom[j + 1];
+		datedenaissance[j] = datedenaissance[j + 1];
+		datedadhesion[j] = datedadhesion[j + 1];
+		sport[j] = sport[j + 1];
+	      }
+
+	    nombreAdherents--;
+
+	    cout << "Les informations ont ete bien supprimees." << endl;
+	    cout << "-------------------------" << endl;
+	    break;
+	  }
+      }
+
+    if (!adherentTrouve)
+      {
+	cout << "L'adherent ne se trouve pas !" << endl;
+	cout << "Entrez un identifiant existant." << endl;
+      }
+  }
+};
+
+class Entraineurs:public Personnes
+{
+  string salaire[8];
+  string n_salaire[8];
+  string nomentraineur;
+  string entraineurrecherche;
+public:  Entraineurs ():Personnes (), salaire ()
+  {
+  }
+  void nouvelleinscription ()
+  {
+
+    if (nombreAdherents < 8)
+      {
+
+	cout << "Entrez le nom d'entraineur : " << endl;
+	cin >> nom[nombreAdherents];
+
+	cout << "Entrez le tel d'entraineur : " << endl;
+	cin >> telephone[nombreAdherents];
+
+
+	cout << "Entrez le salaire d'entraineur : " << endl;
+	cin >> salaire[nombreAdherents];
+	nombreAdherents++;
+
+      }
+    else
+      {
+	cout << "Nombre maximal d'adherents atteint." << endl;
+      }
+  }
+  void rechercher ()
+  {
+
+    cout << "Entrez le nom a recherche : " << endl;
+    cin >> nom[nombreAdherents];
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+
+	if (nom[nombreAdherents] == nom[nombreAdherents])
+	  {
+	    cout << "voici les informations d'entraineur :" << endl;
+
+	    cout << "Nom : " << nom[i] << endl;
+	    cout << "Telephone : " << telephone[i] << endl;
+	    cout << "salaire : " << salaire[i] << endl;
+	    cout << "--------------------------------------" << endl;
+	    break;
+
+	  }
+	else
+	  {
+	    cout << "l'entreneur ne se trouve pas ne se trouve pas!" << endl;
+
+	  }
+
+      }
+
+  }
+  void modifier ()
+  {
+
+    cout << "Entrez le nom d'entraineur a modifier : " << endl;
+    cin >> entraineurrecherche;
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+
+	if (entraineurrecherche == nom[i])
+	  {
+	    cout << "Entrer les nouvelle information :" << endl;
+	    cout << "Entrez le tel d'adherent : " << endl;
+	    cin >> n_telephone[i];
+	    cout << "Entrez le nom d'adherent : " << endl;
+	    cin >> n_nom[i];
+	    cout << "Entrez le nouveau salaire : " << endl;
+	    cin >> n_salaire[i];
+	    telephone[i] = n_telephone[i];
+	    nom[i] = n_nom[i];
+	    salaire[i] = n_salaire[i];
+	    cout << "--------------------------------------" << endl;
+	    break;
+
+	  }
+	else
+	  {
+	    cout << "l'entreneur ne se trouve pas!" << endl;
+
+	  }
+
+      }
+  }
+  void afficher () const
+  {
+    cout << "Liste des entraineures : " << endl;
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	cout << "Informations de l'entraineur : " << endl;
+	cout << "-------------------------" << endl;
+	cout << "Nom : " << nom[i] << endl;
+	cout << "Telephone : " << telephone[i] << endl;
+	cout << "salaire : " << salaire[i] << "DH" << endl;
+	cout << "-------------------------" << endl;
+
+
+      }
+
+
+  }
+  void supprimer ()
+  { cout << "-------------------------" << endl;
+    cout << "Entrez le nom d'entraineur  a  supprimer : " << endl;
+    cin >> nomentraineur;
+
+    bool adherentTrouve = false;
+
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	if (nomentraineur == nom[i])
+	  {
+	    adherentTrouve = true;
+
+	    for (int j = i; j < (nombreAdherents - 1); ++j)
+	      {
+		telephone[j] = telephone[j + 1];
+		nom[j] = nom[j + 1];
+	      }
+
+	    nombreAdherents--;
+
+	    cout << "Les informations ont ete bien supprimees." << endl;
+	    break;
+	  }
+      }
+
+    if (!adherentTrouve)
+      {
+	cout << "entrenaire ne se trouve pas !" << endl;
+      }
+  }
+};
+
+class EntraineursVacataires:public Personnes
+{
+protected:
+  string nomentraineur[8];
+  double prix[8];
+
+public:
+
+  void nouveauentraineurevacataire ()
+  {
+    if (nombreAdherents < 8)
+      {
+
+	cout << "Entrez l identifiant de l'entraineur vacataire : ";
+	cin >> identifiant[nombreAdherents];
+
+	cout << "Entrez le nom de l'entraineur vacataire : ";
+	cin >> nomentraineur[nombreAdherents];
+
+	cout << "Entrez le prix par heure de l entraineur vacataire : ";
+	cin >> prix[nombreAdherents];
+
+	cout << "Entrez le telephone : ";
+	cin >> telephone[nombreAdherents];
+
+	nombreAdherents++;
+      }
+    else
+      {
+	cout << "Nombre maximal d'adherents atteint." << endl;
+      }
+
+  }
+  void afficherentraineurvacataire () const
+  {
+    cout << endl << "Details des entraineurs vacataires :" << endl;
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	cout << "l identifiant de l'entraineur vacataire " << i +
+	  1 << " :" << identifiant[i] << endl;
+	cout << "Nom de l'entraineur vacataire " << i +
+	  1 << " :" << nomentraineur[i] << endl;
+	cout << "Prix par heure : " << prix[i] << " DH/H" << endl;
+	cout << "le telephone de l'entraineur vacataire " << i +
+	  1 << " :" << telephone[i] << endl;
+	cout << "-------------------------" << endl;
+      }
+  }
+  void rechercherentraineurvacataire ()
+  {
+
+    cout << "Entrez l identifiant a recherche : " << endl;
+    cin >> identifiant[nombreAdherents];
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+
+	if (identifiant[nombreAdherents] == identifiant[nombreAdherents])
+	  {
+	    cout << "voici les informations d'entraineur :" << endl;
+	    cout << "Identifiant : " << identifiant[i] << endl;
+	    cout << "Nom : " << nomentraineur[i] << endl;
+	    cout << "Telephone : " << telephone[i] << endl;
+	    cout << "salaire : " << prix[i] << endl;
+	    cout << "--------------------------------------" << endl;
+	    break;
+
+	  }
+	else
+	  {
+	    cout << "l'entraineur ne se trouve pas ne se trouve pas!" << endl;
+
+	  }
+
+      }
+
+  }
+  void supprimervacataire ()
+  {
+    cout << "Entrez le nom d'entraineur  a  supprimer : " << endl;
+    cin >> nomentraineur[nombreAdherents];
+
+    bool adherentTrouve = false;
+
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+	if (nomentraineur[i] == nom[i])
+	  {
+	    adherentTrouve = true;
+
+	    for (int j = i; j < (nombreAdherents - 1); ++j)
+	      {
+		identifiant[j] = identifiant[j + 1];
+		telephone[j] = telephone[j + 1];
+		nomentraineur[j] = nomentraineur[j + 1];
+		prix[j] = prix[j + 1];
+	      }
+
+	    nombreAdherents--;
+
+	    cout << "Les informations ont ete bien supprimees." << endl;
+	    break;
+	  }
+      }
+
+    if (!adherentTrouve)
+      {
+	cout << "entraineur ne se trouve pas !" << endl;
+      }
+  }
+
+
+
+
+};
+
+
+
+class Entrainements:public Entraineurs
+{
+public:
+  int heure[50];
+  string salle[50];
+  string jour[50];
+  string sport[50];
+  string entraineur[50];
+  void planifierSeance ()
+  {
+    if (nombreAdherents < 50)
+      {
+
+	cout << "Entrez l'heure de la seance : ";
+	cin >> heure[50];
+
+	cout << "Entrez la salle de la seance : ";
+	cin >> salle[50];
+
+	cout << "Entrez le jour de la seance : ";
+	cin >> jour[50];
+
+	cout << "Entrez le sport de la seance : ";
+	cin >> sport[50];
+
+	cout << "Seance planifiee avec succes." << endl;
+
+	nombreAdherents++;
+      }
+    else
+      {
+	cout << "Nombre maximal des seances atteint." << endl;
+      }
+
+
+  }
+
+
+  void afficherSeance () const
+  {
+    cout << "Liste des seances : " << endl;
+    for (int i = 0; i < nombreAdherents; ++i)
+      {
+    cout << "-------------------------" << endl;
+	cout << "Details de la seance :" <<i+1<< endl;
+	cout << "Heure : " << heure[i] << endl;
+	cout << "Salle : " << salle[i] << endl;
+	cout << "Jour : " << jour[i] << endl;
+	cout << "Sport : " << sport[i] << endl;
+	cout << "Entraineur : " << entraineur[i] << endl;
+	cout << "-------------------------" << endl;
+      }
+  }
+  void affecterEntraineur ()
+  {
+    cout << "Entrez le nom de l'entraineur : ";
+    cin >> entraineur[nombreAdherents];
+    cout << "EntraC.neur assigne avec succes." << endl;
+  }
+
+};
+
+
+
+class Equipe:public Personnes, public Sports
+{
+protected:
+  int reference[15];
+  string nomequipe[15];
+  static const int maxequipe = 15;
+  string equipes[maxequipe];
+  int nombreEquipes;
+
+public:
+Equipe ()
+  {
+    nombreEquipes = 0;
+  }
+
+  void formerEquipe ()
+  {
+      if (nombreEquipes < maxequipe)
+      {
+          cout << "Entrez la reference de l'equipe : ";
+    cin >> reference[nombreAdherents];
+
+    cout << "Entrez le nom de l'equipe : ";
+
+    cin >> nomequipe[nombreAdherents];
+
+    cout << "l equipe formee avec succes." << endl;
+  
+	
+	nombreEquipes++;
+      }
+    else
+      {
+	cout << "Nombre maximal d'equipes atteint." << endl;
+      }
+    
+}
+    
+  void afficherDetailsEquipe ()
+  {
+      cout << "Details de toutes les equipes :" << endl;
+    for (int i = 0; i < nombreEquipes; ++i)
+      {
+	cout << "Details de l'equipe " << i+1<<" :" << endl;
+    cout << "Reference : " << reference[i] << endl;
+    cout << "Nom d equipe : "<< nomequipe[i] << endl ;
+    cout << "Nom : " << nom[i] << endl;
+	cout << "-------------------------" << endl;
+      }
+  }
+  
+  void affecterAdherent ()
+  {
+    cout << "Entrez le nom de l'adherent : ";
+     cin >> nom[nombreAdherents];
+    cout << "Adherent assigne avec succes." << endl;
+  }
+};
+
+
+class Equipements : public Sports {
+private:
+    static const int maxequipements = 100;
+
+    struct Equipement {
+        int reference;
+        string libelle;
+        string dateAchat;
+        int prix;
+    };
+
+    Equipement equipements[maxequipements];
+    int nombreEquipements;
+
+public:
+    Equipements() : nombreEquipements(0) {}
+    void ajouterEquipement() {
+        if (nombreEquipements < maxequipements) {
+            cout << "Entrez la reference de l'equipement : ";
+            cin >> equipements[nombreEquipements].reference;
+
+            cout << "Entrez le libelle de l'equipement : ";
+            cin >> equipements[nombreEquipements].libelle;
+
+            cout << "Entrez la date d'achat de l'equipement : ";
+            cin >> equipements[nombreEquipements].dateAchat;
+
+            cout << "Entrez le prix d'achat de l'equipement : ";
+            cin >> equipements[nombreEquipements].prix;
+
+            nombreEquipements++;
+            cout << "Équipement ajoute avec succes." << endl;
+        } else {
+            cout << "Nombre maximal d'équipements atteint." << endl;
+        }
+    }
+    void afficherEquipements() const {
+        cout << "Details de tous les equipements :" << endl;
+        for (int i = 0; i < nombreEquipements; ++i) {
+            cout << "Reference : " << equipements[i].reference << endl;
+            cout << "Libelle : " << equipements[i].libelle << endl;
+            cout << "Date d'achat : " << equipements[i].dateAchat << endl;
+            cout << "Prix d'achat : " << equipements[i].prix << " DH" << endl;
+            cout << "-------------------------" << endl;
+        }
+    }
+    void modifierEquipement() {
+        int referenceModifier;
+        cout << "Entrez la reference de l'equipement a modifier : ";
+        cin >> referenceModifier;
+
+        for (int i = 0; i < nombreEquipements; ++i) {
+            if (referenceModifier == equipements[i].reference) {
+                cout << "Entrez le nouveau libelle de l'equipement : ";
+                cin >> equipements[i].libelle;
+
+                cout << "Entrez la nouvelle date d'achat de l'equipement : ";
+                cin >> equipements[i].dateAchat;
+
+                cout << "Entrez le nouveau prix d'achat de l'equipement : ";
+                cin >> equipements[i].prix;
+
+                cout << "Equipement modifie avec succes." << endl;
+                return;
+            }
+        }
+
+        cout << "Aucun equipement trouve avec la reference specifiee." << endl;
+    }
+    void rechercherEquipement() const {
+        int referenceRecherche;
+        cout << "Entrez la reference de l'equipement a rechercher : ";
+        cin >> referenceRecherche;
+
+        for (int i = 0; i < nombreEquipements; ++i) {
+            if (referenceRecherche == equipements[i].reference) {
+                cout << "Details de l'equipement recherche :" << endl;
+                cout << "Reference : " << equipements[i].reference << endl;
+                cout << "Libelle : " << equipements[i].libelle << endl;
+                cout << "Date d'achat : " << equipements[i].dateAchat << endl;
+                cout << "Prix d'achat : " << equipements[i].prix << " DH" << endl;
+                return;
+            }
+        }
+
+        cout << "Aucun equipement trouve avec la reference specifiee." << endl;
+    }
+    void supprimerEquipement() {
+        int referenceSupprimer;
+        cout << "Entrez la reference de l'équipement a supprimer : ";
+        cin >> referenceSupprimer;
+
+        for (int i = 0; i < nombreEquipements; ++i) {
+            if (referenceSupprimer == equipements[i].reference) {
+                for (int j = i; j < (nombreEquipements - 1); ++j) {
+                    equipements[j] = equipements[j + 1];
+                }
+
+                nombreEquipements--;
+                cout << "Equipement supprime avec succes." << endl;
+                return;
+            }
+        }
+
+        cout << "Aucun equipement trouve avec la reference specifiee." << endl;
+    }
+};
+
+int
+main ()
+{
+  int choix2, choix1;
+  Personnes adherents;
+  Entraineurs entraineurs;
+  EntraineursVacataires entraineursvacataire;
+  Entrainements entrainement;
+  Equipe equipemanagment;
+  Equipements equipementmanagment;
+
+
+  do
+    {
+    menu:
+      cout << "MENU PRINCIPAL--------------------" << endl;
+      cout << "1.gestion des adherents" << endl;
+      cout << "2.gestion des entraineurs" << endl;
+      cout << "3.gestion des srances d entrainements" << endl;
+      cout << "4.gestion des equipes" << endl;
+      cout << "5.gestion des equipements" << endl;
+      cout << endl << "Entrez votre choix :";
+      cin >> choix1;
+      switch (choix1)
+	{
+
+	case 1:
+	  cout << "MENU ADHERENT--------------------" << endl;
+      cout << "1. Ajouter" << endl;
+	  cout << "2. Afficher" << endl;
+	  cout << "3. Rechercher" << endl;
+	  cout << "4. Modifier" << endl;
+	  cout << "5. Suprimer" << endl;
+	  cout << "0. Quiter" << endl;
+	  cout << endl << "Entrez votre choix :";
+	  cin >> choix2;
+	  if (choix2 == 1)
+	    {
+	      adherents.nouvelleinscription ();
+	    }
+	  if (choix2 == 2)
+	    {
+	      adherents.afficher ();
+	    };
+	  if (choix2 == 3)
+	    {
+	      adherents.rechercher ();
+
+	    };
+	  if (choix2 == 4)
+	    {
+	      adherents.modifier ();
+
+	    };
+	  if (choix2 == 5)
+	    {
+	      adherents.supprimer ();
+	    };
+	  if (choix2 == 0)
+	    goto menu;
+	  break;
+	case 2:
+	  int choix2;
+	  cout << "MENU ENTRAINEUR--------------------" << endl;
+	  cout << "1. Entraineur salarie  " << endl;
+	  cout << "2. Entraineures Vacaataire  " << endl;
+	  cout << "Entrez votre choix :";
+	  cin >> choix2;
+	  switch (choix2)
+	    {
+
+	    case 1:
+          cout << "MENU ENTRAINEUR--------------------" << endl;
+	      cout << "1. Ajouter " << endl;
+	      cout << "2. Modifier" << endl;
+	      cout << "3. Afficher" << endl;
+	      cout << "4. Rechercher" << endl;
+	      cout << "5. suprimer" << endl;
+	      cout << "0. quiter" << endl;
+	      cout << "Entrez votre choix : ";
+	      cin >> choix2;
+	      if (choix2 == 1)
+		{
+		  entraineurs.nouvelleinscription ();
+
+		};
+	      if (choix2 == 2)
+		{
+		  entraineurs.modifier ();
+		};
+	      if (choix2 == 3)
+		{
+		  entraineurs.afficher ();
+		};
+	      if (choix2 == 4)
+		{
+		  entraineurs.rechercher ();
+		};
+	      if (choix2 == 5)
+		{
+		  entraineurs.supprimer ();
+		};
+	      if (choix2 == 0)
+		goto menu;
+	      break;
+	    case 2:
+	      cout << "MENU ENTRAINEUR--------------------" << endl;
+	      cout << "1. Ajouter " << endl;
+	      cout << "2. Afficher" << endl;
+	      cout << "3. Rechercher" << endl;
+	      cout << "4. Suprimerr" << endl;
+	      cout << "Entrez votre choix : ";
+	      cin >> choix2;
+	      if (choix2 == 1)
+		{
+		  entraineursvacataire.nouveauentraineurevacataire ();
+		};
+	      if (choix2 == 2)
+		{
+		  entraineursvacataire.afficherentraineurvacataire ();
+		};
+	      if (choix2 == 3)
+		{
+		  entraineursvacataire.rechercherentraineurvacataire ();
+		};
+		  if (choix2 == 4)
+		{
+		  entraineursvacataire.supprimervacataire ();
+		};
+	      break;
+	    default:
+	      cout << "erreur retourner au menu principal";
+	    }
+	  break;
+	case 3:
+      cout << "MENU SEANCE--------------------" << endl;
+	  cout << "1. Planifier une seance :" << endl;
+	  cout << "2. afficher les details de la seance" << endl;
+	  cout << "3. affecter un entraineur a la seance" << endl;
+	  cout << "0. quiter" << endl;
+	  cout << "Entrez votre choix :";
+	  cin >> choix2;
+	  if (choix2 == 1)
+	    {
+	      entrainement.planifierSeance ();
+	    };
+	  if (choix2 == 2)
+	    {
+	      entrainement.afficherSeance ();
+	    };
+	  if (choix2 == 3)
+	    {
+	      entrainement.affecterEntraineur ();
+	    };
+	  if (choix2 == 0)
+	    goto menu;
+	  break;
+	case 4:
+	  cout << "MENU EQUIPE--------------------" << endl;
+      cout << "1. Former une equipe :" << endl;
+	  cout << "2. afficher la liste des equipes" << endl;
+	  cout << "3. affecter les adherents" << endl;
+	  cout << "0. quiter" << endl;
+	  cout << "Entrez votre choix :";
+	  cin >> choix2;
+	  if (choix2 == 1)
+	    {
+	      equipemanagment.formerEquipe ();
+	    };
+	  if (choix2 == 2)
+	    {
+	      equipemanagment.afficherDetailsEquipe ();
+	    };
+	  if (choix2 == 3)
+	    {
+	      equipemanagment.affecterAdherent ();
+	    };
+	  if (choix2 == 0)
+	    goto menu;
+	  break;
+	case 5:
+      cout << "MENU EQUIPEMENT--------------------" << endl;
+	  cout << "1. Nouveau" << endl;
+	  cout << "2. Modifier" << endl;
+	  cout << "3. Afficher" << endl;
+	  cout << "4. Rechercher" << endl;
+	  cout << "5. suprimer" << endl;
+	  cout << "0. quiter" << endl;
+	  cout <<"Entrez votre choix :";
+	  cin >> choix2;
+	  if (choix2 == 1)
+	    {equipementmanagment.ajouterEquipement();
+	    };
+	  if (choix2 == 2)
+	    {equipementmanagment.modifierEquipement();
+	    };
+	  if (choix2 == 3)
+	    {equipementmanagment.afficherEquipements();
+	    };
+	  if (choix2 == 4)
+	    {equipementmanagment.rechercherEquipement();
+	    };
+	  if (choix2 == 5)
+	    {equipementmanagment.supprimerEquipement();
+	    };
+	  if (choix2 == 0)
+	    goto menu;
+	  break;
+
+	}
+    }
+  while (choix1 = !0);
+
+
+  return 0;
+}
